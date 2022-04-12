@@ -1,0 +1,206 @@
+#ifndef ANIMAL
+#define ANIMAL
+
+using namespace std;
+
+class Animal //base class
+{
+private:
+	string name ;
+	int age;
+	
+
+
+public:
+	Animal(string, int );  //constructor
+	~Animal();  //destructor
+
+    string getName();
+	int  getAge();
+
+	 virtual void printClassType() const ; //virtual methode
+	 virtual void printOwner() const = 0 { cout << "Rami "; } //pure virtual method
+
+};
+
+class Dog :public Animal  //dog is an animal so it inherits from animal 
+{
+private:
+	string breed;
+
+public:
+	Dog(string, int , string);
+	~Dog();
+
+	string getBreed();   // gets dog breed
+
+	void printDog();  //prints what type is the class dog 
+	virtual void printOwner() const  
+	{
+		cout << "Rami ";
+		cout << "is the owner of this dog"<< endl;  // prints the name of the owner
+	}
+};
+
+class Cat :public Animal
+{
+private:
+	string color;
+	int pawSize;
+
+public:
+	Cat(string, int, string, int);
+	~Cat();
+
+	string getColor();  // gets color of cat
+	int getPawSize();  // gets paw size of cat 
+
+	void printCat();  //prints what type is the class cat
+	virtual void printOwner() const //prints the nemae of owner
+	{
+		cout << "Rami ";
+		cout << "is the owner of this cat" <<endl;
+	}
+
+
+
+};
+
+class Fish: public Animal
+{
+private:
+	int gillCapacity;
+	int swimSpeed;
+
+public:
+	Fish(string, int, int, int);
+	~Fish();
+
+	int getGillCapacity(); //gets gill capacity of fish 
+	int getSwimSpeed(); // gets swim speed of fish 
+
+	virtual void printOwner() const  //prints the name of the owner
+	{
+		cout << "Rami ";
+		cout << "is the owner of this fish" << endl;
+	}
+
+
+};
+#endif
+
+
+//source file
+
+#include <iostream>
+#include <string.h>
+#include "Animal.h";
+
+using std::cout;
+using std::endl;
+
+Animal::Animal(string n, int a)
+{
+	name = n;
+	age = a;
+
+	cout << "\nan object of class animal is created" << endl;
+}
+
+Animal::~Animal()
+{
+	cout << "\nan object of class animal is destroyed" << endl;
+
+}
+
+string Animal::getName() { return name; }
+int  Animal::getAge() { return age; }
+
+void Animal::printClassType() const { cout << "this class is of type Animal" << endl; }
+
+
+
+Dog::Dog(string n, int a, string b) :Animal(n,a)
+{
+	breed = b;
+
+	cout << "\nan object of class Dog was created" << endl;
+} 
+
+Dog::~Dog()
+{
+	cout << "\nan object of class Dog was destroyed" << endl;
+}
+
+string Dog::getBreed() {
+	return breed;
+}
+
+void Dog::printDog() { Animal::printClassType(); }
+
+
+
+Cat::Cat(string n, int a, string c, int p) :Animal(n, a)
+{
+	color = c;
+	pawSize = p;
+	cout << "\nan object of class Cat was created" << endl;
+
+}
+
+Cat::~Cat()
+{ cout << "\nan object of class Cat was destroyed" << endl; }
+
+string Cat::getColor() { return color; }
+int Cat::getPawSize() { return pawSize; }
+
+void Cat::printCat() { Animal::printClassType(); }
+
+
+
+Fish::Fish(string n, int a, int g, int s) :Animal(n, a)
+{
+	gillCapacity = g;
+	swimSpeed = s;
+
+	cout << "\nan object  of class Fish was created" << endl;
+}
+
+Fish::~Fish()
+{cout << "\nan object of class Fish was destroyed" << endl;}
+
+int Fish::getGillCapacity() { return gillCapacity; }
+int Fish::getSwimSpeed() { return swimSpeed; }
+
+
+
+int main()
+{
+	Dog dog("Oliver",5,"German Shephared");
+	cout << "the dog's name is: " << dog.getName()
+		<< "\nhe is " << dog.getAge() << " years old"
+		<< "\nhis breed is " << dog.getBreed() << endl;
+	dog.printDog();
+	dog.printOwner();
+
+	Cat cat("silvester", 2, "white and black", 3);
+	cout << "the cat's name is: " << cat.getName()
+		<< "\nits age is " << cat.getAge() << " years old"
+		<< "\nits color is " << cat.getColor()
+		<< "\nits paw size is " << cat.getPawSize() << endl;
+	cat.printCat();
+	cat.printOwner();
+
+	Fish fish("nimo", 1, 2, 5);
+	cout << "the fish name is: " << fish.getName()
+		<< "\nits age is " << fish.getAge() << " year old"
+		<< "\nits gill capacity is " << fish.getGillCapacity() << " ml"
+		<< "\n and its swim speed is " << fish.getSwimSpeed() << " m/s"<<endl;
+	fish.printOwner();
+
+
+
+
+	
+
+}
